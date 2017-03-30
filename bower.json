@@ -1,0 +1,21 @@
+{
+  "name": "Github_API_Call_Application",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.3",
+    "angular-ui-router": "^1.0.0",
+    "bootstrap": "3.3.6",
+    "angular-mocks": "1.5.3"
+  },
+  "resolutions": {
+    "angular": "1.5.3"
+  }
+}
