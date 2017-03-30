@@ -41,22 +41,40 @@ describe("API Factory", function(){
 			expect(APIFactory.getAPI).not.toHaveBeenCalled();
 		});
 
-		describe("APIFactory.getAPI()", function(){
+		describe("APIFactory.getAPI() is called", function(){
 			it("API Factory should have been called", function(){
 				let API = APIFactory.getAPI();
 
 				expect(APIFactory.getAPI).toHaveBeenCalled();
+				$rootScope.$apply();
+			});
+		});
+	});
+
+
+	describe("APIFactory should return some values", function(){
+		var spy, result;
+
+		beforeEach(function(){
+			spyOn(APIFactory, "getAPI").and.callThrough();
+			result = {};
+		});
+
+		it("should make an API call and return the correct value", inject(function($http){
+			$httpBackend.whenGET(addy).respond(200, $q.when({"id": 8847098}));
+
+			expect(APIFactory.getAPI).not.toHaveBeenCalled();
+			expect(result).toEqual({});
+
+			APIFactory.getAPI().then(function(res){
+				result = res;
 			});
 
-			it("should make an API call and return the correct value", inject(function($http){
-				$httpBackend.whenGET(addy).respond(200, $q.when({"id": 8847098}));
+			$httpBackend.flush();
+			console.log(result);
 
-				expect(APIFactory.getAPI).not.toHaveBeenCalled();
-
-				APIFactory.getAPI();
-
-				$httpBackend.flush();
-			}));
-		});
+			expect(APIFactory.getAPI).toHaveBeenCalled();
+			//expect(result).toEqual(8847098);
+		}));
 	});
 });
