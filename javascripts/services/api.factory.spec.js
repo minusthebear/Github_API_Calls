@@ -1,5 +1,7 @@
 "use strict";
 
+// Add error handling checks soon
+
 describe("API Factory", function(){
 
 	var APIFactory, $httpBackend, $q, $provide, $rootScope, result;
@@ -72,14 +74,14 @@ describe("API Factory", function(){
 			expect(APIFactory.getAPI).not.toHaveBeenCalled();
 			expect(result).toEqual({});
 
-			APIFactory.getAPI().then(function(res){
+			APIFactory.getAPI("minusthebear").then(function(res){
 				result = res;
 			});
 
 			$httpBackend.flush();
 
 			expect(APIFactory.getAPI).toHaveBeenCalled();
-			expect(result.id).toEqual(8847098);
+			expect(result.data.id).toEqual(8847098);
 		}));
 
 	});

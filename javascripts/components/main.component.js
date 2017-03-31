@@ -10,13 +10,13 @@
 		controllerAs: "vm",
 		controller: function(APIFactory, UserFactory, $state){
 			const vm = this;
-			var User;
 
-			vm.searchGithub = function(x){
+
+			vm.searchGithub = function(){
 				APIFactory.getAPI(vm.searchText).then(function(res){
 					res.status !== 200 ? $state.go("404", {errorData: res.data }) : (
-						User = new UserFactory.User(res.data),
-						$state.go("profile", {userData: User})
+						vm.User = new UserFactory.User(res.data),
+						$state.go("profile", {userData: vm.User})
 					);
 				})
 				.catch(function(err){
