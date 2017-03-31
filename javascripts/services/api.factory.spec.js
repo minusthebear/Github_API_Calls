@@ -79,7 +79,7 @@ describe("API Factory", function(){
 			$httpBackend.flush();
 
 			expect(APIFactory.getAPI).toHaveBeenCalled();
-			expect(result.data.id).toEqual(8847098);
+			expect(result.id).toEqual(8847098);
 		}));
 
 	});
@@ -94,7 +94,7 @@ describe("API Factory", function(){
 
 		it("should return Not Found message with invalid user", function(){
 			$httpBackend.whenGET("https://api.github.com/users/ffeqfenqfewqoio")
-				.respond(404, RESPONSE_ERROR);
+				.respond(404);
 
 			expect(APIFactory.getAPI).not.toHaveBeenCalled();
 			expect(result).toEqual({});

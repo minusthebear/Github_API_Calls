@@ -21,6 +21,10 @@
 			url: "/main",
 			component: "mainComponent"
 		})
+		.state("profile", {
+			url: "/profile",
+			component: "profileComponent"
+		})
 		.state("404", {
 			url: "/fourOFour",
 			component: "fourOFour"
