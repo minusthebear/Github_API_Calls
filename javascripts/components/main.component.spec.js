@@ -9,18 +9,20 @@
 "use strict";
 
 describe("Main Component", function(){
-	var mainComponent, APIFactory, UserFactory, $httpBackend, $q, $state;
+	var mainComponent, APIFactory, UserFactory, $httpBackend, $q, $state, $rootScope;
 
 	const addy = "https://api.github.com/users/";
 
 	beforeEach(angular.mock.module("app"));
 
-	beforeEach(inject(function(_APIFactory_, _UserFactory_, _$httpBackend_, _$state_, _$q_, _$componentController_){
+	beforeEach(inject(function(_APIFactory_, _UserFactory_, _$httpBackend_, _$state_, _$q_, _$rootScope_, _$componentController_){
 		APIFactory = _APIFactory_;
 		UserFactory = _UserFactory_;
 		$httpBackend = _$httpBackend_;
 		$state = _$state_;
 		$q = _$q_;
+		$rootScope = _$rootScope_;
+		$rootScope.$new();
 		mainComponent = _$componentController_("mainComponent", { $scope : {} });
 	}));
 
@@ -39,7 +41,7 @@ describe("Main Component", function(){
 
 		beforeEach(function(){
 			spyOn(mainComponent, "searchGithub").and.callThrough();
-			spyOn(APIFactory, "getAPI");
+			spyOn(APIFactory, "getAPI").and.callThrough();
 			result = {};
 		});
 
@@ -57,14 +59,19 @@ describe("Main Component", function(){
 		it("should make a call to UserFactory", function(){
 			mainComponent.searchText = "minusthebear";
 			expect(mainComponent.searchText).toBeDefined();
-			mainComponent.searchGithub();
-
-			console.log(result);
 
 			$httpBackend.whenGET(addy + mainComponent.searchText).respond(200, $q.when(RESPONSE_SUCCESS));
-			$httpBackend.flush();
 
+			// This is where I expect something to work
+
+			APIFactory.getAPI(mainComponent.searchText).then(function(res){
+				result = res;
+			});
+
+			$httpBackend.flush();
+			
 			expect(APIFactory.getAPI).toHaveBeenCalledWith(mainComponent.searchText);
+			expect(mainComponent.User).toBeDefined();
 		});
 	});
 
