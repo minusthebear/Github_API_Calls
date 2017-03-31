@@ -14,19 +14,10 @@
 
 			vm.searchGithub = function(x){
 				APIFactory.getAPI(vm.searchText).then(function(res){
-					if(res.status !== 200){
-						$state.go("404", {errorData: res.data });
-					} else {
-						User = new UserFactory.User(res.data);
-						$state.go("profile", {userData: User});
-					}
-						/*
-
-					res.status !== 200 ? $state.go("404({errorData: res.data })")) : (
+					res.status !== 200 ? $state.go("404", {errorData: res.data }) : (
 						User = new UserFactory.User(res.data),
-						$state.go("profile({userData: User}}")
+						$state.go("profile", {userData: User})
 					);
-					*/
 				})
 				.catch(function(err){
 					$state.go("fourOFour");
