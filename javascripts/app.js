@@ -23,11 +23,13 @@
 		})
 		.state("profile", {
 			url: "/profile",
-			component: "profileComponent"
+			component: "profileComponent",
+			params: { userData: null }
 		})
 		.state("404", {
 			url: "/fourOFour",
-			component: "fourOFour"
+			component: "fourOFour",
+			params: { errorData: null }
 		});
 	});
 

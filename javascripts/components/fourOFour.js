@@ -3,7 +3,7 @@
 (function(){
 
 	angular.module("app").component("fourOFour", {
-		template: "/templates/fourOFour.html",
+		templateUrl: "/templates/fourOFour.html",
 		controllerAs: "vm",
 		controller: function(){
 			const vm = this;
