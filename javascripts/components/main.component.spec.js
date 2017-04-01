@@ -9,7 +9,42 @@
 "use strict";
 
 describe("Main Component", function(){
-	var mainComponent, APIFactory, UserFactory, $httpBackend, $q, $state, $rootScope;
+	var mainComponent, APIFactory, UserFactory, $httpBackend, $q, $state, $rootScope, bindings;
+
+	const APIFactoryMock = {
+		getAPI: function(){}
+	};
+
+	const UserFactoryMock = {
+		User: function(data){
+			return {
+				login: data.login,
+				id: data.id,
+				avatar_url: data.avatar_url,
+				html_url: data.html_url,
+				followers: data.followers,
+				following: data.following,
+				public_repos: data.public_repos,
+				public_gists: data.public_gists,
+				created_at: data.created_at,
+				updated_at: data.updated_at,
+				name: data.name,
+				company: data.company,
+				blog: data.blog,
+				location: data.location,
+				bio: data.bio,
+				hireable: data.hireable,
+				email: data.email,
+				links: {
+					followers_url: data.followers_url,
+					following_url: data.following_url,
+					subscriptions_url: data.subscriptions_url,
+					repos_url: data.repos_url,
+					organizations_url: data.organizations_url
+				}
+			}
+		}
+	};
 
 	const addy = "https://api.github.com/users/";
 
@@ -23,7 +58,9 @@ describe("Main Component", function(){
 		$q = _$q_;
 		$rootScope = _$rootScope_;
 		$rootScope.$new();
-		mainComponent = _$componentController_("mainComponent", { $scope : {} });
+		spyOn(APIFactoryMock, "getAPI").and.returnValue(RESPONSE_SUCCESS);
+		bindings = { APIFactory: APIFactoryMock, UserFactory: UserFactoryMock, $state: $state };
+		mainComponent = _$componentController_("mainComponent", { $scope : {} }, bindings);
 	}));
 
 	describe("Checking mainComponent's existence", function(){
@@ -41,8 +78,7 @@ describe("Main Component", function(){
 
 		beforeEach(function(){
 			spyOn(mainComponent, "searchGithub").and.callThrough();
-			spyOn(APIFactory, "getAPI").and.callThrough();
-			result = {};
+			
 		});
 
 		it("should have searchText not to bedefined", function(){
@@ -60,18 +96,16 @@ describe("Main Component", function(){
 			mainComponent.searchText = "minusthebear";
 			expect(mainComponent.searchText).toBeDefined();
 
+			mainComponent.searchGithub(mainComponent.searchText);
 			$httpBackend.whenGET(addy + mainComponent.searchText).respond(200, $q.when(RESPONSE_SUCCESS));
 
-			// This is where I expect something to work
-
-			APIFactory.getAPI(mainComponent.searchText).then(function(res){
-				result = res;
-			});
-
 			$httpBackend.flush();
+
+			mainComponent.User = UserFactoryMock.User(RESPONSE_SUCCESS.data);
 			
-			expect(APIFactory.getAPI).toHaveBeenCalledWith(mainComponent.searchText);
+			expect(mainComponent.searchGithub).toHaveBeenCalledWith(mainComponent.searchText);
 			expect(mainComponent.User).toBeDefined();
+			expect(mainComponent.User.id).toEqual(8847098);
 		});
 	});
 
@@ -100,6 +134,6 @@ describe("Main Component", function(){
 			"created_at": "2014-09-21T01:35:11Z",
 			"updated_at": "2017-02-03T20:12:43Z"			
 		}
-
 	};
+
 });

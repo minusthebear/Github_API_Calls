@@ -3,7 +3,6 @@
 
 (function(){
 	const User = function(data){
-		console.log(data);
 
 		this.login = data.login;
 		this.id = data.id;
