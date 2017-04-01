@@ -20,6 +20,12 @@ describe("User Factory", function(){
 		expect(x.links.followers_url).toEqual("https://api.github.com/users/minusthebear/followers");
 	});
 
+	it("should give invalid value undefined", function(){
+		delete RESPONSE_SUCCESS.data.login;
+		let x = new UserFactory.User(RESPONSE_SUCCESS.data);
+		expect(x.login).toEqual(undefined);
+	});
+
 	const RESPONSE_SUCCESS = {
 		status: 200,
 		data: {

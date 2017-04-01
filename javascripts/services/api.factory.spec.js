@@ -84,16 +84,6 @@ describe("API Factory", function(){
 			expect(result.data.id).toEqual(8847098);
 		}));
 
-	});
-
-	describe("Handling a bad API call", function(){
-		var result;
-
-		beforeEach(function(){
-			spyOn(APIFactory, "getAPI").and.callThrough();
-			result = {};
-		});
-
 		it("should return Not Found message with invalid user", function(){
 			$httpBackend.whenGET("https://api.github.com/users/ffeqfenqfewqoio")
 				.respond(404, RESPONSE_ERROR);
@@ -111,6 +101,7 @@ describe("API Factory", function(){
 
 			expect(result.data).toEqual(RESPONSE_ERROR);
 		});
+
 	});
 
 	const RESPONSE_SUCCESS = {
