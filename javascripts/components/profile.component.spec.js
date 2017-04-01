@@ -2,15 +2,19 @@
 
 describe("Profile Component", function(){
 
-	var profileComponent, $httpBackend, $q, UserFactory, bindings;
+    const addy = "https://api.github.com/users/";
+
+	var profileComponent, $httpBackend, $q, $state, APIFactory, FollowFactory, UserFactory, bindings;
 
 	beforeEach(angular.mock.module("app"));
 
-	beforeEach(inject(function(_UserFactory_, _$httpBackend_, _$q_, _$rootScope_){
-		
+	beforeEach(inject(function(_APIFactory_, _FollowFactory_, _UserFactory_, _$httpBackend_, _$q_, _$state_, _$rootScope_){
+		APIFactory = _APIFactory_;
+        FollowFactory = _FollowFactory_;
 		UserFactory = _UserFactory_;
 		$httpBackend = _$httpBackend_;
 		$q = _$q_;
+        $state = _$state_;
 		_$rootScope_.$new();
 
 	}));
@@ -41,10 +45,7 @@ describe("Profile Component", function(){
 			expect(profileComponent.user).toBeDefined();
 			expect(profileComponent.user.id).toEqual(RESPONSE_SUCCESS.id);
 		});
-		
-		it("should make an API call to followers_url", function(){
-			expect(profileComponent.followr).toBeDefined();
-		});
+
 
 		it("should make an API call to following_url", function(){
 			expect(profileComponent.followg).toBeDefined();
@@ -55,7 +56,42 @@ describe("Profile Component", function(){
 		});
 	});
 
-	describe
+	describe("triggering profileComponent.followr method", function(){
+        var x;
+
+        beforeEach(inject(function(_$componentController_){
+            profileComponent = _$componentController_("profileComponent", { $scope: {} });
+            spyOn(profileComponent, "followr").and.callThrough();
+            spyOn(FollowFactory, "setFollower");
+            // spyOn(APIFactory, "getAPI").and.returnValue(follower);
+        }));
+
+
+        it("profileComponent.followr should be defined", function(){
+            expect(profileComponent.followr).toBeDefined();
+        });
+
+        describe("profileComponent.followr should work properly", function(){
+            it("should not have been called", function(){
+                expect(profileComponent.followr).not.toHaveBeenCalled();
+            });
+            
+            it("should make an API call to followers_url", function(){
+                let id = "minusthebear";
+                let suffix = id + "/followers";
+                expect(FollowFactory.setFollower).not.toHaveBeenCalled();
+                //expect(APIFactory.getAPI).not.toHaveBeenCalled();
+
+                var test = profileComponent.followr(id);
+
+                $httpBackend.whenGET(addy + suffix).respond(200);
+                $httpBackend.flush();
+
+                expect(profileComponent.followr).toHaveBeenCalledWith(id);
+                expect(FollowFactory.setFollower).toHaveBeenCalled();
+            });
+        });
+    });
 });
 
 const RESPONSE_SUCCESS = {
@@ -110,50 +146,56 @@ const UserFactoryMock = {
 	}
 };
 
-const following = [
-  {
-    "login": "caoabunga",
-    "id": 3313366,
-    "avatar_url": "https://avatars2.githubusercontent.com/u/3313366?v=3",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/caoabunga",
-    "html_url": "https://github.com/caoabunga",
-    "followers_url": "https://api.github.com/users/caoabunga/followers",
-    "following_url": "https://api.github.com/users/caoabunga/following{/other_user}",
-    "gists_url": "https://api.github.com/users/caoabunga/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/caoabunga/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/caoabunga/subscriptions",
-    "organizations_url": "https://api.github.com/users/caoabunga/orgs",
-    "repos_url": "https://api.github.com/users/caoabunga/repos",
-    "events_url": "https://api.github.com/users/caoabunga/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/caoabunga/received_events",
-    "type": "User",
-    "site_admin": false
-  }
-];
+const following = {
+    status: 200,
+    data: [
+      {
+        "login": "caoabunga",
+        "id": 3313366,
+        "avatar_url": "https://avatars2.githubusercontent.com/u/3313366?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/caoabunga",
+        "html_url": "https://github.com/caoabunga",
+        "followers_url": "https://api.github.com/users/caoabunga/followers",
+        "following_url": "https://api.github.com/users/caoabunga/following{/other_user}",
+        "gists_url": "https://api.github.com/users/caoabunga/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/caoabunga/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/caoabunga/subscriptions",
+        "organizations_url": "https://api.github.com/users/caoabunga/orgs",
+        "repos_url": "https://api.github.com/users/caoabunga/repos",
+        "events_url": "https://api.github.com/users/caoabunga/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/caoabunga/received_events",
+        "type": "User",
+        "site_admin": false
+      }
+    ]
+};
 
-const follower = [
-  {
-    "login": "caoabunga",
-    "id": 3313366,
-    "avatar_url": "https://avatars2.githubusercontent.com/u/3313366?v=3",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/caoabunga",
-    "html_url": "https://github.com/caoabunga",
-    "followers_url": "https://api.github.com/users/caoabunga/followers",
-    "following_url": "https://api.github.com/users/caoabunga/following{/other_user}",
-    "gists_url": "https://api.github.com/users/caoabunga/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/caoabunga/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/caoabunga/subscriptions",
-    "organizations_url": "https://api.github.com/users/caoabunga/orgs",
-    "repos_url": "https://api.github.com/users/caoabunga/repos",
-    "events_url": "https://api.github.com/users/caoabunga/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/caoabunga/received_events",
-    "type": "User",
-    "site_admin": false
-  }
-];
-
+const follower = {
+    status: 200,
+    data: [
+      {
+        "login": "caoabunga",
+        "id": 3313366,
+        "avatar_url": "https://avatars2.githubusercontent.com/u/3313366?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/caoabunga",
+        "html_url": "https://github.com/caoabunga",
+        "followers_url": "https://api.github.com/users/caoabunga/followers",
+        "following_url": "https://api.github.com/users/caoabunga/following{/other_user}",
+        "gists_url": "https://api.github.com/users/caoabunga/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/caoabunga/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/caoabunga/subscriptions",
+        "organizations_url": "https://api.github.com/users/caoabunga/orgs",
+        "repos_url": "https://api.github.com/users/caoabunga/repos",
+        "events_url": "https://api.github.com/users/caoabunga/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/caoabunga/received_events",
+        "type": "User",
+        "site_admin": false
+      }
+    ]
+};
+/*
 const repos = [
   {
     "id": 74779284,
@@ -1402,3 +1444,4 @@ const repos = [
     "default_branch": "master"
   }
 ]
+*/ 

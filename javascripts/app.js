@@ -26,6 +26,11 @@
 			component: "profileComponent",
 			params: { userData: null }
 		})
+		.state("profile.follow", {
+			url: "/follow/:id",
+			component: "followComponent",
+			params: { id: null }
+		})
 		.state("404", {
 			url: "/fourOFour",
 			component: "fourOFour",

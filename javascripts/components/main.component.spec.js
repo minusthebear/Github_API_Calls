@@ -65,9 +65,7 @@ describe("Main Component", function(){
 			$httpBackend.flush();
 
 			expect(mainComponent.searchGithub).toHaveBeenCalledWith(mainComponent.searchText);
-			
-
-
+			expect(UserFactory.setUser).toHaveBeenCalled();
 			expect($state.current.name).toBe("profile");
 		});
 

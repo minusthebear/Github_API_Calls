@@ -4,11 +4,11 @@
 
 	<a href="{{vm.user.html_url}}">Github Profile URL</a>
 
-	<a href ng-click="vm.followr()">Followers: {{vm.user.followers}}</a>
+	<a href ng-click="vm.followr(vm.user.login)">Followers: {{vm.user.followers}}</a>
 
-	<a href ng-click="vm.followg()">Followers: {{vm.user.following}}</a>
+	<a href ng-click="vm.followg(vm.user.login)">Followers: {{vm.user.following}}</a>
 
-	<a href ng-click="vm.repos()">Public Repos: {{vm.user.public_repos}}</a>
+	<a href ng-click="vm.repos(vm.user.login)">Public Repos: {{vm.user.public_repos}}</a>
 
 
 	<p>{{vm.user | json}}</p>
