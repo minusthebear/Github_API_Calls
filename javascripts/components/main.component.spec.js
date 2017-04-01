@@ -7,37 +7,6 @@ describe("Main Component", function(){
 		getAPI: function(){}
 	};
 
-	const UserFactoryMock = {
-		User: function(data){
-			return {
-				login: data.login,
-				id: data.id,
-				avatar_url: data.avatar_url,
-				html_url: data.html_url,
-				followers: data.followers,
-				following: data.following,
-				public_repos: data.public_repos,
-				public_gists: data.public_gists,
-				created_at: data.created_at,
-				updated_at: data.updated_at,
-				name: data.name,
-				company: data.company,
-				blog: data.blog,
-				location: data.location,
-				bio: data.bio,
-				hireable: data.hireable,
-				email: data.email,
-				links: {
-					followers_url: data.followers_url,
-					following_url: data.following_url,
-					subscriptions_url: data.subscriptions_url,
-					repos_url: data.repos_url,
-					organizations_url: data.organizations_url
-				}
-			}
-		}
-	};
-
 	const addy = "https://api.github.com/users/";
 
 	beforeEach(angular.mock.module("app"));
@@ -52,7 +21,7 @@ describe("Main Component", function(){
 		$rootScope = _$rootScope_;
 		$rootScope.$new();
 		spyOn(APIFactoryMock, "getAPI").and.returnValue(RESPONSE_SUCCESS);
-		bindings = { APIFactory: APIFactoryMock, UserFactory: UserFactoryMock, $state: $state };
+		bindings = { APIFactory: APIFactoryMock, UserFactory: UserFactory, $state: $state };
 		mainComponent = _$componentController_("mainComponent", { $scope : {} }, bindings);
 	}));
 
@@ -71,7 +40,7 @@ describe("Main Component", function(){
 
 		beforeEach(function(){
 			spyOn(mainComponent, "searchGithub").and.callThrough();
-			
+			spyOn(UserFactory, "setUser");
 		});
 
 		it("should have searchText not to bedefined", function(){
@@ -88,17 +57,16 @@ describe("Main Component", function(){
 		it("should make a call to UserFactory", function(){
 			mainComponent.searchText = "minusthebear";
 			expect(mainComponent.searchText).toBeDefined();
+			expect(UserFactory.setUser).not.toHaveBeenCalled();
 
 			mainComponent.searchGithub(mainComponent.searchText);
 			$httpBackend.whenGET(addy + mainComponent.searchText).respond(200, $q.when(RESPONSE_SUCCESS));
 
 			$httpBackend.flush();
 
-			mainComponent.User = UserFactoryMock.User(RESPONSE_SUCCESS.data);
-			
 			expect(mainComponent.searchGithub).toHaveBeenCalledWith(mainComponent.searchText);
-			expect(mainComponent.User).toBeDefined();
-			expect(mainComponent.User.id).toEqual(8847098);
+			
+
 
 			expect($state.current.name).toBe("profile");
 		});
@@ -125,8 +93,6 @@ describe("Main Component", function(){
 			"html_url": "https://github.com/minusthebear",
 			"followers_url": "https://api.github.com/users/minusthebear/followers",
 			"following_url": "https://api.github.com/users/minusthebear/following{/other_user}",
-			"subscriptions_url": "https://api.github.com/users/minusthebear/subscriptions",
-			"organizations_url": "https://api.github.com/users/minusthebear/orgs",
 			"repos_url": "https://api.github.com/users/minusthebear/repos",
 			"name": null,
 			"company": null,
@@ -135,7 +101,6 @@ describe("Main Component", function(){
 			"email": null,
 			"bio": null,
 			"public_repos": 14,
-			"public_gists": 0,
 			"followers": 1,
 			"following": 1,
 			"created_at": "2014-09-21T01:35:11Z",
@@ -149,3 +114,34 @@ describe("Main Component", function(){
 	};
 
 });
+
+
+/*
+	const UserFactoryMock = {
+		User: function(data){
+			return {
+				login: data.login,
+				id: data.id,
+				avatar_url: data.avatar_url,
+				html_url: data.html_url,
+				followers: data.followers,
+				following: data.following,
+				public_repos: data.public_repos,
+				created_at: data.created_at,
+				updated_at: data.updated_at,
+				name: data.name,
+				company: data.company,
+				blog: data.blog,
+				location: data.location,
+				bio: data.bio,
+				hireable: data.hireable,
+				email: data.email,
+				links: {
+					followers_url: data.followers_url,
+					following_url: data.following_url,
+					repos_url: data.repos_url
+				}
+			}
+		}
+	};
+	*/

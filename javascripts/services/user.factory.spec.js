@@ -11,18 +11,31 @@ describe("User Factory", function(){
 
 	it("UserFactory and its methods should be defined", function(){
 		expect(UserFactory).toBeDefined();
-		expect(UserFactory.User).toBeDefined();
+		expect(UserFactory.User).not.toBeDefined();
+		expect(UserFactory.setUser).toBeDefined();
+		expect(UserFactory.getUser).toBeDefined();
+	});
+
+	it("should set User and return User", function(){
+		expect(UserFactory.User).not.toEqual(RESPONSE_SUCCESS.data);
+		
+		UserFactory.setUser(RESPONSE_SUCCESS.data);
+		
+		expect(UserFactory.User.id).toEqual(RESPONSE_SUCCESS.data.id);
+		expect(UserFactory.User.links.followers_url).toEqual(UserFactory.User.links.followers_url);
 	});
 
 	it("should take data and return the correct value", function(){
-		let x = new UserFactory.User(RESPONSE_SUCCESS.data);
+		UserFactory.setUser(RESPONSE_SUCCESS.data);
+		let x = UserFactory.getUser();
 		expect(x.id).toEqual(8847098);
 		expect(x.links.followers_url).toEqual("https://api.github.com/users/minusthebear/followers");
 	});
 
 	it("should give invalid value undefined", function(){
 		delete RESPONSE_SUCCESS.data.login;
-		let x = new UserFactory.User(RESPONSE_SUCCESS.data);
+		UserFactory.setUser(RESPONSE_SUCCESS.data);
+		let x = UserFactory.getUser(RESPONSE_SUCCESS.data);
 		expect(x.login).toEqual(undefined);
 	});
 
@@ -35,8 +48,6 @@ describe("User Factory", function(){
 			"html_url": "https://github.com/minusthebear",
 			"followers_url": "https://api.github.com/users/minusthebear/followers",
 			"following_url": "https://api.github.com/users/minusthebear/following{/other_user}",
-			"subscriptions_url": "https://api.github.com/users/minusthebear/subscriptions",
-			"organizations_url": "https://api.github.com/users/minusthebear/orgs",
 			"repos_url": "https://api.github.com/users/minusthebear/repos",
 			"name": null,
 			"company": null,
@@ -45,7 +56,6 @@ describe("User Factory", function(){
 			"email": null,
 			"bio": null,
 			"public_repos": 14,
-			"public_gists": 0,
 			"followers": 1,
 			"following": 1,
 			"created_at": "2014-09-21T01:35:11Z",

@@ -15,8 +15,8 @@
 			vm.searchGithub = function(){
 				APIFactory.getAPI(vm.searchText).then(function(res){
 					res.status !== 200 ? $state.go("404", {errorData: res.data }) : (
-						vm.User = new UserFactory.User(res.data),
-						$state.go("profile", {userData: vm.User})
+						UserFactory.setUser(res.data),
+						$state.go("profile")
 					);
 				})
 				.catch(function(err){
