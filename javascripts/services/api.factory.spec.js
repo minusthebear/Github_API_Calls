@@ -87,7 +87,7 @@ describe("API Factory", function(){
 	});
 
 	describe("Handling a bad API call", function(){
-		var spy, result;
+		var result;
 
 		beforeEach(function(){
 			spyOn(APIFactory, "getAPI").and.callThrough();
@@ -96,19 +96,20 @@ describe("API Factory", function(){
 
 		it("should return Not Found message with invalid user", function(){
 			$httpBackend.whenGET("https://api.github.com/users/ffeqfenqfewqoio")
-				.respond(404);
+				.respond(404, RESPONSE_ERROR);
 
 			expect(APIFactory.getAPI).not.toHaveBeenCalled();
 			expect(result).toEqual({});
 
-/*
-			APIFactory.getAPI().catch(function(res){
+			APIFactory.getAPI("ffeqfenqfewqoio").then(function(res){
+				result = res;
+			}).catch(function(res){
 				result = res;
 			});
-*/
-			// $httpBackend.flush();
-			//expect(APIFactory.getAPI).toHaveBeenCalled();
-			//expect(result).toEqual(RESPONSE_ERROR);
+
+			$httpBackend.flush();
+
+			expect(result.data).toEqual(RESPONSE_ERROR);
 		});
 	});
 

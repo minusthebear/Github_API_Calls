@@ -1,15 +1,7 @@
-// GOAL:
-
-// 1. Type in user, hit search
-
-// 2. Have find user, re-route if success
-
-// 3. If not success, re-route elsewhere
-
 "use strict";
 
 describe("Main Component", function(){
-	var mainComponent, APIFactory, UserFactory, $httpBackend, $q, $state, $rootScope, bindings;
+	var mainComponent, APIFactory, UserFactory, $templateCache, $httpBackend, $q, $state, $rootScope, bindings;
 
 	const APIFactoryMock = {
 		getAPI: function(){}
@@ -50,9 +42,10 @@ describe("Main Component", function(){
 
 	beforeEach(angular.mock.module("app"));
 
-	beforeEach(inject(function(_APIFactory_, _UserFactory_, _$httpBackend_, _$state_, _$q_, _$rootScope_, _$componentController_){
+	beforeEach(inject(function(_APIFactory_, _UserFactory_, _$templateCache_, _$httpBackend_, _$state_, _$q_, _$rootScope_, _$componentController_){
 		APIFactory = _APIFactory_;
 		UserFactory = _UserFactory_;
+		$templateCache = _$templateCache_;
 		$httpBackend = _$httpBackend_;
 		$state = _$state_;
 		$q = _$q_;
@@ -106,6 +99,20 @@ describe("Main Component", function(){
 			expect(mainComponent.searchGithub).toHaveBeenCalledWith(mainComponent.searchText);
 			expect(mainComponent.User).toBeDefined();
 			expect(mainComponent.User.id).toEqual(8847098);
+
+			expect($state.current.name).toBe("profile");
+		});
+
+		it("should redirect to 404 if status is not 200", function(){
+
+			mainComponent.searchText = "fdsniafdsiafsdoanfiosadn";
+
+			mainComponent.searchGithub(mainComponent.searchText);
+			$httpBackend.whenGET(addy + mainComponent.searchText).respond(404, $q.reject(RESPONSE_ERROR));
+
+			$httpBackend.flush();
+
+			expect($state.current.name).toBe("404");
 		});
 	});
 
@@ -134,6 +141,11 @@ describe("Main Component", function(){
 			"created_at": "2014-09-21T01:35:11Z",
 			"updated_at": "2017-02-03T20:12:43Z"			
 		}
+	};
+
+	const RESPONSE_ERROR = {
+		"message": "Not Found",
+		"documentation_url": "https://developer.github.com/v3"
 	};
 
 });
