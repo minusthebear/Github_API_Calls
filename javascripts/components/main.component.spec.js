@@ -1,5 +1,7 @@
 "use strict";
 
+// Do error handling when you get a chance
+
 describe("Main Component", function(){
 	var mainComponent, APIFactory, UserFactory, $templateCache, $httpBackend, $q, $state, $rootScope, bindings;
 
@@ -29,11 +31,7 @@ describe("Main Component", function(){
 			expect(mainComponent.profileBoxVisible).not.toBeDefined();
 			expect(mainComponent.errorBoxVisible).not.toBeDefined();
 		});
-/*
-		it("should have a search method called searchGithub()", function(){
-			expect(mainComponent.searchGithub).toBeDefined();
-		});
-*/
+
 	});
 
 	describe("initSearch", function(){

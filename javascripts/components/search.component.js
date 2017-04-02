@@ -7,13 +7,11 @@
 		controllerAs: "vm",
 		controller: searchComponent,
 		bindings: {
-			onSearch: "&",
-			profileBoxVisible: "<",
-			errorBoxVisible: "<"
+			onSearch: "&"
 		}
 	});
 
-	function searchComponent(APIFactory, UserFactory, $state){
+	function searchComponent(APIFactory, UserFactory){
 		const vm = this;
 		var result;
 
@@ -27,7 +25,7 @@
 				);
 			})
 			.catch(function(err){
-				$state.go("fourOFour");
+				vm.onSearch({errorData: err, userData: null });
 			});
 		};
 

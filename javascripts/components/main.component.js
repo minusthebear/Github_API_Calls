@@ -25,8 +25,7 @@
 			}
 
 			vm.$onChanges = function(){
-				console.log(vm.user);
-				vm.user = vm.user;
+				//vm.user = vm.user;
 			}
 		}
 	});
