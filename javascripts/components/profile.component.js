@@ -1,39 +1,51 @@
 "use strict";
 
+
 (function(){
 	angular.module("app").component("profileComponent", {
 		templateUrl: "/templates/profile.component.html",
 		controllerAs: "vm",
-		controller: function(APIFactory, UserFactory, FollowFactory, $state){
+		bindings: {
+			user: "<",
+			newProfile: "&"
+		},
+		controller: function(APIFactory, UserFactory, FollowFactory){
 			const vm = this;
 
-			vm.followr = function(x){
-				let suffix = x + "/followers";
-				return APIFactory.getAPI(suffix).then(function(res){
-					res.status !== 200 ? $state.go("404", {errorData: res.data }) : (
-						FollowFactory.setFollower(res.data),
-						$state.go("profile.follow", {id: "follower"})
-					);
-				});
-			};
+			vm.sendToFollowParent = function(err, data){
+				vm.newProfile({err: err, data: data});
+				allFalse(vm);
+			}
 
-			vm.followg = function(x){
-				let suffix = x + "/following";
-				return APIFactory.getAPI(suffix).then(function(res){
-					res.status !== 200 ? $state.go("404", {errorData: res.data }) : (
-						FollowFactory.setFollowing(res.data),
-						$state.go("profile.follow", {id: "following"})
-					);
-				});
-			};
-
-			vm.repoMan = function(){
-
-			};
+			vm.onFollow = function(data, follow){
+				allFalse(vm);
+				vm.showFollow = true;
+				vm.follow = data;
+				vm.ersing = follow;
+			}
 
 			vm.$onInit = function(){
-				vm.user = UserFactory.getUser();
-			};
+				console.log(vm.user);
+				vm.userDetails = vm.user;
+				console.log(vm.userDetails);
+				allFalse(vm);
+				vm.showProfile = true;
+			}
+
+			vm.$onChanges = function(){
+				vm.userDetails = vm.user;
+				allFalse(vm);
+				vm.showProfile = true;				
+			}
+
 		}
 	});
+
+
+	function allFalse(vm){
+		vm.showRepos = false;
+		vm.showFollow = false;
+		vm.showProfile = false;
+	}
+
 })();

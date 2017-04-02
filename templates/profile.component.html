@@ -1,33 +1,5 @@
-<div class="container">
+<h3>Profile</h3>
 
-	<img src="{{vm.user.avatar_url}}" >
+<profile-user-component on-follow="vm.onFollow(data, follow)" ng-if="vm.showProfile" user-details="vm.userDetails"></profile-user-component>
 
-	<a href="{{vm.user.html_url}}">Github Profile URL</a>
-
-	<a href ng-click="vm.followr(vm.user.login)">Followers: {{vm.user.followers}}</a>
-
-	<a href ng-click="vm.followg(vm.user.login)">Followers: {{vm.user.following}}</a>
-
-	<a href ng-click="vm.repos(vm.user.login)">Public Repos: {{vm.user.public_repos}}</a>
-
-
-	<p>{{vm.user | json}}</p>
-
-	 <p>{{vm.user.login}} </p>
-	{{vm.user.id}} <p/>
-	{{vm.user.avatar_url}} <p/>
-	{{vm.user.html_url}} <p/>
-	{{vm.user.followers}} <p/>
-	{{vm.user.following}} <p/>
-	{{vm.user.public_repos}} <p/>
-	{{vm.user.created_at}} <p/>
-	{{vm.user.updated_at}} <p/>
-	{{vm.user.name}} <p/>
-	{{vm.user.company}} <p/>
-	{{vm.user.blog}} <p/>
-	{{vm.user.location}} <p/>
-	{{vm.user.bio}} <p/>
-	{{vm.user.hireable}} <p/>
-	{{vm.user.email}} <p/>
-
-</div>
+<follow-component send-to-follow-parent="vm.sendToFollowParent(err, data)" follow="vm.follow" ng-if="vm.showFollow"></follow-component>

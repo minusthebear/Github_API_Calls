@@ -1,0 +1,34 @@
+
+<div class="container">
+
+	<img src="{{vm.userDetails.avatar_url}}" >
+
+	<a href="{{vm.userDetails.html_url}}">Github Profile URL</a>
+
+	<a href ng-click="vm.followr(vm.userDetails.login)">Followers: {{vm.userDetails.followers}}</a>
+
+	<a href ng-click="vm.followg(vm.userDetails.login)">Followers: {{vm.userDetails.following}}</a>
+
+	<a href ng-click="vm.repos(vm.userDetails.login)">Public Repos: {{vm.userDetails.public_repos}}</a>
+
+
+	<p>{{vm.userDetails | json}}</p>
+
+	 <p>{{vm.userDetails.login}} </p>
+	{{vm.userDetails.id}} <p/>
+	{{vm.userDetails.avatar_url}} <p/>
+	{{vm.userDetails.html_url}} <p/>
+	{{vm.userDetails.followers}} <p/>
+	{{vm.userDetails.following}} <p/>
+	{{vm.userDetails.public_repos}} <p/>
+	{{vm.userDetails.created_at}} <p/>
+	{{vm.userDetails.updated_at}} <p/>
+	{{vm.userDetails.name}} <p/>
+	{{vm.userDetails.company}} <p/>
+	{{vm.userDetails.blog}} <p/>
+	{{vm.userDetails.location}} <p/>
+	{{vm.userDetails.bio}} <p/>
+	{{vm.userDetails.hireable}} <p/>
+	{{vm.userDetails.email}} <p/>
+
+</div>

@@ -16,28 +16,28 @@ describe("FollowFactory", function(){
 	describe("setFollower should act properly", function(){
 		
 		beforeEach(function(){
-			spyOn(FollowFactory, "setFollower");
-			spyOn(FollowFactory, "getFollower").and.returnValue(organizeAllFollows(followers));
+			spyOn(FollowFactory, "setFollowers");
+			spyOn(FollowFactory, "getFollowers").and.returnValue(organizeAllFollows(followers));
 		});
 
 		it("should not be invoked", function(){
-			expect(FollowFactory.setFollower).not.toHaveBeenCalled();
-			expect(FollowFactory.getFollower).not.toHaveBeenCalled();
+			expect(FollowFactory.setFollowers).not.toHaveBeenCalled();
+			expect(FollowFactory.getFollowers).not.toHaveBeenCalled();
 		});
 
-		describe("setFollower and getFollower", function(){
+		describe("setFollowers and getFollowers", function(){
 			var len;
 			beforeEach(function(){
 				len = followers.length;
-				FollowFactory.setFollower(followers);
+				FollowFactory.setFollowers(followers);
 			});
 
 			it("should have setFollower set values", function(){
-				expect(FollowFactory.setFollower).toHaveBeenCalledWith(followers);
+				expect(FollowFactory.setFollowers).toHaveBeenCalledWith(followers);
 			});
 
 			it("should return getFollower values", function(){
-				let x = FollowFactory.getFollower();
+				let x = FollowFactory.getFollowers();
 				expect(x.length).toEqual(len);
 				expect(x[0].login).toEqual("erbombla");
 			});

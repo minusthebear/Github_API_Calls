@@ -6,7 +6,6 @@
 		this.login = data.login;
 		this.id = data.id;
 		this.avatar_url = data.avatar_url;
-		this.gravatar_id = data.gravatar_id;
 		this.url = data.url;
 		this.html_url = data.html_url;
 	};
@@ -23,19 +22,13 @@
 			return arr;
 		}
 
-		x.setFollower = function(data){
-			x.follower = organizeAllFollows(data);
+		x.setFollowers = function(data){
+			x.followers = organizeAllFollows(data);
+			return x.followers;
 		}
 
 		x.setFollowing = function(data){
 			x.following = organizeAllFollows(data);
-		}
-
-		x.getFollower = function(){
-			return x.follower;
-		}
-
-		x.getFollowing = function(){
 			return x.following;
 		}
 

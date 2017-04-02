@@ -47,8 +47,7 @@ describe("User Factory", function(){
 			"avatar_url": "https://avatars1.githubusercontent.com/u/8847098?v=3",
 			"html_url": "https://github.com/minusthebear",
 			"followers_url": "https://api.github.com/users/minusthebear/followers",
-			"following_url": "https://api.github.com/users/minusthebear/following{/other_user}",
-			"repos_url": "https://api.github.com/users/minusthebear/repos",
+			"following_url": "https://api.github.com/users/minusthebear/following{/other_user}"
 			"name": null,
 			"company": null,
 			"blog": null,

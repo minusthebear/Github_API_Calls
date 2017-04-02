@@ -22,8 +22,7 @@
 		this.email = data.email;
 		this.links = {
 			followers_url: data.followers_url,
-			following_url: data.following_url,
-			repos_url: data.repos_url,
+			following_url: data.following_url
 		}
 	};
 
@@ -32,6 +31,7 @@
 
 		x.setUser = function(data){
 			x.User = new User(data);
+			return x.User;
 		}
 
 		x.getUser = function(){

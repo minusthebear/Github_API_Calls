@@ -1,32 +1,39 @@
-// 1. Error handling.
-
-// 2. Redirect on successful call
-
 "use strict";
 
 (function(){
+
 	angular.module("app").component("mainComponent", {
 		templateUrl: "/templates/main.component.html",
 		controllerAs: "vm",
-		controller: function(APIFactory, UserFactory, $state){
+		controller: function(){
 			const vm = this;
 
+			vm.initSearch = function(){
+				allFalse(vm);
+			}
 
-			vm.searchGithub = function(){
-				APIFactory.getAPI(vm.searchText).then(function(res){
-					res.status !== 200 ? $state.go("404", {errorData: res.data }) : (
-						UserFactory.setUser(res.data),
-						$state.go("profile")
-					);
-				})
-				.catch(function(err){
-					$state.go("fourOFour");
-				});
-			};
+			vm.onSearch = function(errorData, userData){
+				allFalse(vm);
+				if(errorData){
+					vm.error = errorData;
+					vm.errorBoxVisible = true;
+				
+				} else {
+					vm.user = userData;
+					console.log(vm.user);
+					vm.profileBoxVisible = true;
+				}
+			}
 
-			vm.$onInit = function(){
-				vm.hello = "Hello";
-			};
+			vm.$onChanges = function(){
+				console.log(vm.user);
+				vm.user = vm.user;
+			}
 		}
 	});
+
+	function allFalse(vm){
+		vm.profileBoxVisible = false;
+		vm.errorBoxVisible = false;
+	}
 })();
