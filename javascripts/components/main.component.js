@@ -20,7 +20,6 @@
 				
 				} else {
 					vm.user = userData;
-					console.log(vm.user);
 					vm.profileBoxVisible = true;
 				}
 			}

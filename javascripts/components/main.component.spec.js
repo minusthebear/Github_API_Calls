@@ -7,22 +7,17 @@ describe("Main Component", function(){
 		getAPI: function(){}
 	};
 
-	const addy = "https://api.github.com/users/";
+
+// 	const addy = "https://api.github.com/users/";
 
 	beforeEach(angular.mock.module("app"));
 
-	beforeEach(inject(function(_APIFactory_, _UserFactory_, _$templateCache_, _$httpBackend_, _$state_, _$q_, _$rootScope_, _$componentController_){
-		APIFactory = _APIFactory_;
-		UserFactory = _UserFactory_;
-		$templateCache = _$templateCache_;
+	beforeEach(inject(function(_$httpBackend_, _$q_, _$rootScope_, _$componentController_){
 		$httpBackend = _$httpBackend_;
-		$state = _$state_;
 		$q = _$q_;
 		$rootScope = _$rootScope_;
 		$rootScope.$new();
-		spyOn(APIFactoryMock, "getAPI").and.returnValue(RESPONSE_SUCCESS);
-		bindings = { APIFactory: APIFactoryMock, UserFactory: UserFactory, $state: $state };
-		mainComponent = _$componentController_("mainComponent", { $scope : {} }, bindings);
+		mainComponent = _$componentController_("mainComponent", { $scope : {} });
 	}));
 
 	describe("Checking mainComponent's existence", function(){
@@ -30,11 +25,60 @@ describe("Main Component", function(){
 			expect(mainComponent).toBeDefined();
 		});
 
+		it("should ensure both variables are not true", function(){
+			expect(mainComponent.profileBoxVisible).not.toBeDefined();
+			expect(mainComponent.errorBoxVisible).not.toBeDefined();
+		});
+/*
 		it("should have a search method called searchGithub()", function(){
 			expect(mainComponent.searchGithub).toBeDefined();
 		});
+*/
 	});
 
+	describe("initSearch", function(){
+		beforeEach(function(){
+			spyOn(mainComponent, "initSearch");
+		});
+
+		it("should set values to false", function(){
+			mainComponent.profileBoxVisible = true;
+			mainComponent.errorBoxVisible = true;
+
+			expect(mainComponent.initSearch).not.toHaveBeenCalled();
+			allFalse(mainComponent);
+
+			mainComponent.initSearch();
+			expect(mainComponent.initSearch).toHaveBeenCalled();
+
+			expect(mainComponent.profileBoxVisible).toBe(false);
+			expect(mainComponent.errorBoxVisible).toBe(false);
+		});
+	});
+
+	describe("onSearch", function(){
+		it("should set data and make profile box visible if data exists", function(){
+			allFalse(mainComponent);
+			expect(mainComponent.profileBoxVisible).toBe(false);
+			expect(mainComponent.errorBoxVisible).toBe(false);
+
+			mainComponent.onSearch(null, RESPONSE_SUCCESS.data);
+
+			expect(mainComponent.user).toEqual(RESPONSE_SUCCESS.data);
+			expect(mainComponent.profileBoxVisible).toBe(true);
+		});
+
+		it("should activate errorBoxVisible", function(){
+			allFalse(mainComponent);
+			mainComponent.onSearch(RESPONSE_ERROR, null);
+
+			expect(mainComponent.error).toEqual(RESPONSE_ERROR);
+			expect(mainComponent.errorBoxVisible).toBe(true);
+		});
+	});
+
+
+/*
 	describe("Checking if the searchGithub() worked correctly", function(){
 		var result;
 
@@ -81,6 +125,12 @@ describe("Main Component", function(){
 			expect($state.current.name).toBe("404");
 		});
 	});
+*/
+
+	function allFalse(vm){
+		vm.profileBoxVisible = false;
+		vm.errorBoxVisible = false;
+	}
 
 	const RESPONSE_SUCCESS = {
 		status: 200,
