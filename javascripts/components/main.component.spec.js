@@ -3,7 +3,7 @@
 // Do error handling when you get a chance
 
 describe("Main Component", function(){
-	var mainComponent, APIFactory, UserFactory, $templateCache, $httpBackend, $q, $state, $rootScope, bindings;
+	var mainComponent, APIFactory, UserFactory, $httpBackend, $q, $rootScope, bindings;
 
 	const APIFactoryMock = {
 		getAPI: function(){}

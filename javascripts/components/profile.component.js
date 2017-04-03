@@ -43,7 +43,6 @@
 
 
 	function allFalse(vm){
-		vm.showRepos = false;
 		vm.showFollow = false;
 		vm.showProfile = false;
 	}
