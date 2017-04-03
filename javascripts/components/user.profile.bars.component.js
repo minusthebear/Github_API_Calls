@@ -9,7 +9,7 @@
 			getNewProfile: "&"
 		},
 		controllerAs: "vm",
-		controller: function($state, APIFactory, UserFactory){
+		controller: function(APIFactory, UserFactory){
 			const vm = this;
 
 			vm.goToProfile = function(){

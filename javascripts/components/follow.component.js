@@ -16,7 +16,6 @@
 			const vm = this;
 
 			vm.getNewProfile = function(err, data){
-				console.log(data);
 				vm.sendToFollowParent({err: err, data: data});
 			}
 		}

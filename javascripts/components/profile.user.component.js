@@ -34,16 +34,12 @@
 				});
 			};
 
-			vm.repoMan = function(){
-
-			};
-
 			vm.$onInit = function(){
-				console.log(vm.userDetails);
+				
 			};
 
 			vm.$onChanges = function(){
-				console.log("ON CHANGES!");
+				
 			}
 		}
 	});
