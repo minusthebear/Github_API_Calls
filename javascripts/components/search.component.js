@@ -33,8 +33,8 @@
 			
 		};
 
-		vm.$onChanges = function(bindings){
-			// if(bindings.profileBoxVisible === true)
+		vm.$onChanges = function(){
+			
 		}
 	}
 })();

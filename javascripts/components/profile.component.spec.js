@@ -32,6 +32,20 @@ describe("Profile Component", function(){
 			expect(profileComponent.showFollow).not.toBeDefined();
 			expect(profileComponent.showProfile).not.toBeDefined();
 		});
+
+		it("have $onInit set values", function(){
+			profileComponent.$onInit();
+			expect(profileComponent.userDetails).toEqual(login);
+			expect(profileComponent.showFollow).toBe(false);
+			expect(profileComponent.showProfile).toBe(true);
+		});
+
+		it("have $onChanges set values", function(){
+			profileComponent.$onChanges();
+			expect(profileComponent.userDetails).toEqual(login);
+			expect(profileComponent.showFollow).toBe(false);
+			expect(profileComponent.showProfile).toBe(true);
+		});
 	});
 
 	describe("profileComponent sendToFollowParent", function(){
@@ -43,6 +57,16 @@ describe("Profile Component", function(){
 			expect(newProfileSpy).toHaveBeenCalledWith({err: null, data: newValues});
 			expect(profileComponent.showFollow).toBe(false);
 			expect(profileComponent.showProfile).toBe(false);
+		});
+	});
+
+	describe("profileComponent onFollow", function(){
+		it("onFollow should work properly", function(){
+			profileComponent.onFollow(login, "following");
+			expect(profileComponent.showFollow).toBe(true);
+			expect(profileComponent.showProfile).toBe(false);
+			expect(profileComponent.ersing).toEqual("following");
+			expect(profileComponent.follow).toEqual(login);
 		});
 	});
 });

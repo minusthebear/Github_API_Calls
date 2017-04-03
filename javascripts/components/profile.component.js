@@ -25,9 +25,7 @@
 			}
 
 			vm.$onInit = function(){
-				console.log(vm.user);
 				vm.userDetails = vm.user;
-				console.log(vm.userDetails);
 				allFalse(vm);
 				vm.showProfile = true;
 			}

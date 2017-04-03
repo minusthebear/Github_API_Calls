@@ -1,6 +1,6 @@
 "use strict";
 
-describe("searchComponent", function(){
+describe("Search Component", function(){
 	var componentController, searchComponent, APIFactory, UserFactory, $rootScope, $httpBackend, $q, bindings, onSearchSpy;
 
 	const APIFactoryMock = {};
