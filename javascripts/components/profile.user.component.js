@@ -12,8 +12,11 @@
 		controller: function(APIFactory, UserFactory, FollowFactory){
 			const vm = this;
 
-			vm.followr = function(x){
-				let suffix = x + "/followers";
+			vm.followersLength = vm.userDetails.followers;
+			vm.followingLength = vm.userDetails.following;
+
+			vm.followr = function(){
+				let suffix = vm.userDetails.login + "/followers";
 				let data;
 				APIFactory.getAPI(suffix).then(function(res){
 					res.status !== 200 ? vm.onFollow({err: res.data, data: null, follow: null}) : (
@@ -25,8 +28,8 @@
 				});
 			};
 
-			vm.followg = function(x){
-				let suffix = x + "/following";
+			vm.followg = function(){
+				let suffix = vm.userDetails.login + "/following";
 				let data;
 				APIFactory.getAPI(suffix).then(function(res){
 					res.status !== 200 ? vm.onFollow({err: res.data, data: null, follow: null}) : (

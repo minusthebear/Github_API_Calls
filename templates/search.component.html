@@ -1,8 +1,18 @@
 
-<div class="container">
-	<h3>Search Github's users for their profile info</h3>
-	<form ng-submit="vm.searchGithub()">
-	  <input type="search" name="googlesearch" ng-model="vm.searchText"><br>
-	  <input type="submit">
+<div class="col-md-12 col-centered">
+	<h3 class="col-md-8 col-md-offset-2 set-better-margin align-centered-text">Search Github's users for their profile info</h3>
+	<form class="form-group row " ng-submit="vm.searchGithub()">
+	  <div class="row col-md-6 col-md-offset-2 ">
+		  <input class="form-control  search-input-box" type="search" name="googlesearch" ng-model="vm.searchText">
+	  </div>
+	  <div class="col-md-2">
+	  	<input class="search-submit btn btn-primary" type="submit">
+	  </div>
 	</form>
+</div>
+
+<div class="">
+	<div class="col-md-8 col-md-offset-2">
+		<h4 class="text-justify search-introduction">This is an application which allows you to search Github user information, navigate through a user's followers, and see who the user is following. At any point, if a followed/following user's profile seems interesting, you may click on their profile and see their details.
+	</div> 
 </div>

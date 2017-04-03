@@ -1,5 +1,3 @@
-<h3>Profile</h3>
+<profile-user-component class="contain-bg-color" on-follow="vm.onFollow(data, follow)" ng-if="vm.showProfile" user-details="vm.userDetails"></profile-user-component>
 
-<profile-user-component on-follow="vm.onFollow(data, follow)" ng-if="vm.showProfile" user-details="vm.userDetails"></profile-user-component>
-
-<follow-component send-to-follow-parent="vm.sendToFollowParent(err, data)" follow="vm.follow" ng-if="vm.showFollow"></follow-component>
+<follow-component class="contain-bg-color"  send-to-follow-parent="vm.sendToFollowParent(err, data)" follow="vm.follow" ng-if="vm.showFollow"></follow-component>

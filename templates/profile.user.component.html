@@ -1,34 +1,68 @@
 
-<div class="container">
+<div class="row">
 
-	<img src="{{vm.userDetails.avatar_url}}" >
+	<div class="col-md-8 col-md-offset-2 col-centered profile-box">
+		
+		<div class="lg-image-container" ng-style="{'background-image': 'url('+ vm.userDetails.avatar_url+')'}"></div>
 
-	<a href="{{vm.userDetails.html_url}}">Github Profile URL</a>
+		<div ng-if="vm.userDetails.login" class="row">
+			<p class="text-center">Github Profile Name: <strong>{{vm.userDetails.login}}</strong></p>
+		</div>
 
-	<a href ng-click="vm.followr(vm.userDetails.login)">Followers: {{vm.userDetails.followers}}</a>
+		<div ng-if="vm.userDetails.id" class="row">
+			<p class="text-center">Github Profile ID: <strong>{{vm.userDetails.id}}</strong></p>
+		</div>
 
-	<a href ng-click="vm.followg(vm.userDetails.login)">Followers: {{vm.userDetails.following}}</a>
+		<div ng-if="vm.userDetails.name" class="row">
+			<p class="text-center">User name: <strong>{{vm.userDetails.name}}</strong></p>
+		</div>
 
-	<a href ng-click="vm.repos(vm.userDetails.login)">Public Repos: {{vm.userDetails.public_repos}}</a>
+		<div ng-if="vm.userDetails.company" class="row">
+			<p class="text-center">Company: <strong>{{vm.userDetails.company}}</strong></p>
+		</div>
 
+		<div ng-if="vm.userDetails.blog" class="row">
+			<p class="text-center">Blog: <a href="{{vm.userDetails.company}}"><strong>{{vm.userDetails.company}}</strong></p></a>
+		</div>
 
-	<p>{{vm.userDetails | json}}</p>
+		<div ng-if="vm.userDetails.location" class="row">
+			<p class="text-center">Location: <strong>{{vm.userDetails.location}}</strong></p>
+		</div>
 
-	 <p>{{vm.userDetails.login}} </p>
-	{{vm.userDetails.id}} <p/>
-	{{vm.userDetails.avatar_url}} <p/>
-	{{vm.userDetails.html_url}} <p/>
-	{{vm.userDetails.followers}} <p/>
-	{{vm.userDetails.following}} <p/>
-	{{vm.userDetails.public_repos}} <p/>
-	{{vm.userDetails.created_at}} <p/>
-	{{vm.userDetails.updated_at}} <p/>
-	{{vm.userDetails.name}} <p/>
-	{{vm.userDetails.company}} <p/>
-	{{vm.userDetails.blog}} <p/>
-	{{vm.userDetails.location}} <p/>
-	{{vm.userDetails.bio}} <p/>
-	{{vm.userDetails.hireable}} <p/>
-	{{vm.userDetails.email}} <p/>
+		<div ng-if="vm.userDetails.hireable" class="row">
+			<p class="text-center">Location: <strong>{{vm.userDetails.hireable}}</strong></p>
+		</div>
 
+		<div ng-if="vm.userDetails.email" class="row">
+			<p class="text-center">Location: <strong>{{vm.userDetails.hireable}}</strong></p>
+		</div>
+
+		<div ng-if="vm.userDetails.bio" class="row">
+			<p class="text-center">Biography: <strong>{{vm.userDetails.bio}}</strong></p>
+		</div>
+				
+		<div ng-if="vm.userDetails.html_url" class="row">
+			<p class="text-center">Github Profile URL: <a href="{{vm.userDetails.html_url}}">{{vm.userDetails.html_url}}</a></p>
+		</div>
+
+		<div ng-if="vm.userDetails.public_repos" class="row">
+			<p class="text-center">Public Repository Count: {{vm.userDetails.public_repos}}</p>
+		</div>
+		
+		<div ng-if="vm.userDetails.created_at" class="row">
+			<p class="text-center">Public profile created on {{vm.userDetails.created_at}}</p>
+		</div>
+		
+		<div ng-if="vm.userDetails.updated_at" class="row">
+			<p class="text-center">Public profile last updated on {{vm.userDetails.updated_at}}</p>
+		</div>
+
+		<div ng-if="vm.userDetails.followers" class="row">
+			<p class="text-center"><a href ng-click="vm.followr()">See all {{vm.userDetails.login}}'s {{vm.followersLength}} followers</a></p>
+		</div>
+
+		<div ng-if="vm.userDetails.following" class="row">
+			<p class="text-center"><a href ng-click="vm.followg()">See all {{vm.userDetails.login}}'s {{vm.followingLength}} followers</a></p>
+		</div>
+	</div>
 </div>
