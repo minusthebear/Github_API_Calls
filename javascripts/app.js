@@ -15,11 +15,6 @@
 		$stateProvider.state("main", {
 			url: "/main",
 			component: "mainComponent"
-		})
-		.state("404", {
-			url: "/fourOFour",
-			component: "fourOFour",
-			params: { errorData: null }
 		});
 	});
 

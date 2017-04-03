@@ -1,12 +1,12 @@
 <div class="container">
 
 
-	<search-component class="row" on-search="vm.onSearch(errorData, userData)" ng-if="!vm.profileBoxVisible"></search-component>
+	<search-component class="row" on-search="vm.onSearch(errorData, userData)" failed-search="vm.errorBoxVisible" ng-if="!vm.profileBoxVisible && !vm.errorBoxVisible"></search-component>
 
 	<profile-component class="row" new-profile="vm.onSearch(err, data)" user="vm.user" ng-if="vm.profileBoxVisible"></profile-component>
 
 	<back-to-search-component class="row" init-search="vm.initSearch()" ng-if="vm.profileBoxVisible"></back-to-search-component>
 
-	<four-o-four class="row" ng-if="errorBoxVisible"></four-o-four>
+	<four-o-four class="row" from-error-page="vm.fromErrorPage()" ng-if="vm.errorBoxVisible"></four-o-four>
 
 </div>

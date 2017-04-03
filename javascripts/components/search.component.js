@@ -19,13 +19,18 @@
 
 		vm.searchGithub = function(){
 			APIFactory.getAPI(vm.searchText).then(function(res){
-				res.status !== 200 ? vm.onSearch({errorData: res.data, userData: null }) : (
+				res.status !== 200 ? (
+					vm.onSearch({errorData: res.data, userData: null }),
+					console.log(res.data)
+				) : (
 					result = UserFactory.setUser(res.data),
-					vm.onSearch({errorData: null, userData: result})
+					vm.onSearch({errorData: null, userData: result}),
+					console.log("res.data")
 				);
 			})
 			.catch(function(err){
 				vm.onSearch({errorData: err, userData: null });
+				console.log(err);
 			});
 		};
 
