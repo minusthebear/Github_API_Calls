@@ -9,7 +9,7 @@
 
 		$urlRouterProvider.when("", "/main").when("/", "/main")
 			.otherwise(function($injector){
-				$injector.get("$state").go("404", {}, {location: false});
+				$injector.get("$state").go("main");
 			});
 
 		$stateProvider.state("main", {
