@@ -20,6 +20,8 @@
 						data = FollowFactory.setFollowers(res.data),
 						vm.onFollow({err: null, data: data, follow: "followers"})
 					);
+				}).catch(function(err){
+					vm.onFollow({err: err, data: null, follow: null});
 				});
 			};
 
@@ -31,6 +33,8 @@
 						data = FollowFactory.setFollowing(res.data),
 						vm.onFollow({err: null, data: data, follow: "following"})
 					);
+				}).catch(function(err){
+					vm.onFollow({err: err, data: null, follow: null});
 				});
 			};
 
