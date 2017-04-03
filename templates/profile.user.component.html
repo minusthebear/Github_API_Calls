@@ -3,7 +3,7 @@
 
 	<div class="col-md-8 col-md-offset-2 col-centered profile-box">
 		
-		<div class="lg-image-container" ng-style="{'background-image': 'url('+ vm.userDetails.avatar_url+')'}"></div>
+		<div class="image-container lg-image-container" ng-style="{'background-image': 'url('+ vm.userDetails.avatar_url+')'}"></div>
 
 		<div ng-if="vm.userDetails.login" class="row">
 			<p class="text-center">Github Profile Name: <strong>{{vm.userDetails.login}}</strong></p>
@@ -42,27 +42,27 @@
 		</div>
 				
 		<div ng-if="vm.userDetails.html_url" class="row">
-			<p class="text-center">Github Profile URL: <a href="{{vm.userDetails.html_url}}">{{vm.userDetails.html_url}}</a></p>
+			<p class="text-center">Github Profile URL: <strong><a href="{{vm.userDetails.html_url}}">{{vm.userDetails.html_url}}</a></strong></p>
 		</div>
 
 		<div ng-if="vm.userDetails.public_repos" class="row">
-			<p class="text-center">Public Repository Count: {{vm.userDetails.public_repos}}</p>
+			<p class="text-center">Public Repository Count: <strong>{{vm.userDetails.public_repos}}</strong></p>
 		</div>
 		
 		<div ng-if="vm.userDetails.created_at" class="row">
-			<p class="text-center">Public profile created on {{vm.userDetails.created_at}}</p>
+			<p class="text-center">Public profile created on <strong>{{vm.userDetails.created_at}}</strong></p>
 		</div>
 		
 		<div ng-if="vm.userDetails.updated_at" class="row">
-			<p class="text-center">Public profile last updated on {{vm.userDetails.updated_at}}</p>
+			<p class="text-center">Public profile last updated on <strong>{{vm.userDetails.updated_at}}</strong></p>
 		</div>
 
 		<div ng-if="vm.userDetails.followers" class="row">
-			<p class="text-center"><a href ng-click="vm.followr()">See all {{vm.userDetails.login}}'s {{vm.followersLength}} followers</a></p>
+			<p class="text-center"><a href ng-click="vm.followr()"><strong>See all {{vm.userDetails.login}}'s {{vm.followersLength}} followers</a></strong></p>
 		</div>
 
 		<div ng-if="vm.userDetails.following" class="row">
-			<p class="text-center"><a href ng-click="vm.followg()">See all {{vm.userDetails.login}}'s {{vm.followingLength}} followers</a></p>
+			<p class="text-center"><a href ng-click="vm.followg()"><strong>See all {{vm.userDetails.login}}'s {{vm.followingLength}} followers</a></strong></p>
 		</div>
 	</div>
 </div>

@@ -1,4 +1,14 @@
-<img src="{{vm.user.avatar_url}}">
-<p>Login: {{vm.user.login}}</p>
-<p>ID: {{vm.user.id}}</p>
-<a href ng-click="vm.goToProfile()">Click here!</a>
+<div class="row">
+	<div class="follow-bar col-md-8 col-md-offset-2">
+		<div class="image-left-box">
+			<div class="follow-image-container image-container" ng-style="{'background-image': 'url(' + vm.user.avatar_url + ')'}">
+			</div>		
+		</div>
+		<div class="details-right-box">
+			<p>Login: {{vm.user.login}}</p>
+			<p>ID: {{vm.user.id}}</p>
+			<a href ng-click="vm.goToProfile()">Click here to see this user's details!</a>
+		</div>		
+	</div>
+</div>
+
