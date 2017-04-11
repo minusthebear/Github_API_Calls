@@ -9,3 +9,5 @@ To get this to work, first install all dependencies
 3. npm install -g live-server
 
 4. To start application, type "live-server" on the command line in the project's root directory.
+
+5. To unit test, type "karma start" on the command line in the project's root directory.
