@@ -14,14 +14,11 @@
 
 			vm.onSearch = function(errorData, userData){
 				allFalse(vm);
-				console.log(errorData);
 				if(errorData){
-					console.log(errorData)
 					vm.error = errorData;
 					vm.errorBoxVisible = true;
 				
 				} else {
-					console.log(userData);
 					vm.user = userData;
 					vm.profileBoxVisible = true;
 				}
